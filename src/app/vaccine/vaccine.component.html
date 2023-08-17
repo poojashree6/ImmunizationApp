@@ -1,0 +1,105 @@
+<button type="button" class="btn ms-2 me-2"
+style="background-color:rgb(27, 3, 99) ; width:250px;color: white;" data-bs-toggle="modal"
+data-bs-target="#exampleModal" (click)="clickAddvaccinedata()" >
+Add Vaccination Details<i class="fa-solid fa-plus"></i>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgb(127, 68, 155); ">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;" >Vaccination Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form  [formGroup]="vaccineform">
+                    <p>
+                    <label for="vaccine">Vaccine Name</label>
+                       <select class="form-control" name="vaccine" id="vaccine" formControlName="vaccine">
+                        <option value="Hepatitis B">Hepatitis B </option>
+                        <option value="Rotavirus">Rotavirus</option>
+                        <option value="Inactivated poliovirus">Inactivated poliovirus</option>
+                        <option value="Dengue">Dengue</option>
+                       </select>
+                    </p>
+                    <p>
+                        <label for="duration">Duration</label>
+                           <select class="form-control"  name="duration" id="duration" formControlName="duration">
+                            <option value="0th week">0th week </option>
+                            <option value="1st week">1st week</option>
+                            <option value="2nd week">2nd week</option>
+                            <option value="3rd week">3rd week</option>
+                           </select>
+                        </p>
+                        <div class="form-check" style="float: left; margin-right: 10px;">
+                            <input class="form-check-input" type="checkbox" value="Dose1" (change)="OnChangeEvent($event)" formControlName="dosage" id="flexRadioDefault1">Dose1
+                          </div>
+                          <div class="form-check" style="float: left; margin-right: 10px;">
+                            <input class="form-check-input" type="checkbox" value="Dose2" (change)="OnChangeEvent($event)"  formControlName="dosage" id="flexRadioDefault2" >Dose2
+                           
+                        </div>
+                        <div class="form-check" style="float: left; margin-right: 10px;">
+                          <input class="form-check-input" type="checkbox"  value="Dose3"  (change)="OnChangeEvent($event)" formControlName="dosage"  id="flexRadioDefault3" >Dose3
+                        </div>
+                        <!-- <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">Dose1  
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >Dose2
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >Dose3
+                        </div>
+                        -->
+                          <br> <br>
+                          <div class="form-check" style="float: left; margin-right: 10px;">
+                            <input class="form-check-input" type="radio" value="active" formControlName="radio" id="flexRadioDisabled" >
+                            <label class="form-check-label" for="flexRadioDisabled">
+                            Active
+                            </label>
+                          </div>
+                          <div class="form-check" style="float: left; margin-right: 10px;">
+                            <input class="form-check-input" type="radio" value="inactive" formControlName="radio" id="flexRadioCheckedDisabled" >
+                            <label class="form-check-label" for="flexRadioCheckedDisabled">
+                            InActive
+                            </label>
+                          </div>                     
+                </form>
+            </div>
+         <div class="modal-footer" style="background-color: rgb(127, 68, 155);"> 
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="button"  *ngIf="showadd" (click)="postvaccinedata()" class="btn btn-success">Save</button>
+                <button type="button"  *ngIf="showupdate" (click)="updatevaccinedata()" class="btn btn-primary">Update</button>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid"  mt-3>
+  <table class="table mt-3" >
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Vaccine Name</th>
+          <th scope="col">Duration</th>
+          <th scope="col">Dosage</th>
+          <th scope="col">Active</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let vaccine of vaccineData">
+          <td>{{vaccine.id}}</td>
+          <td>{{vaccine.vaccine}}</td>
+          <td>{{vaccine.duration}}</td> 
+          <td>{{vaccine.dosage}}</td> 
+          <td>{{vaccine.radio}}</td>
+          <td><button type="button" (click)="deletevaccinedata(vaccine)" class="btn  me-3 "><i
+              class="fa-solid fa-trash-can"></i></button>
+      <button type="button" (click)="onEdit(vaccine)" class="btn  me-3" data-bs-toggle="modal"
+          data-bs-target="#exampleModal"><i class="fa-solid fa-pen"></i></button></td>
+
+      </tbody>
+  </table>
+</div>

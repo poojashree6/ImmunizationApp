@@ -1,0 +1,88 @@
+<button type="button" class="btn ms-2 me-2" (click)="clickAddchilddata()"
+    style="background-color:rgb(27, 3, 99) ; width:250px;color: white;" data-bs-toggle="modal" on
+    data-bs-target="#exampleModal">
+    Add Child Vaccination Details<i class="fa-solid fa-plus"></i>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgb(127, 68, 155); ">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;"> Child Vaccination Details
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="childform">
+                    <label for="childname">child name</label>
+                    <select class="form-select" formControlName="name" name="name" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option *ngFor="let list of listData ">{{list.name}}</option>
+                    </select>
+                    <label for="vaccinename">Vaccine name</label>
+                    <select class="form-select" formControlName="vaccine" name="vaccine"
+                        aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option *ngFor="let vaccine of vaccineData " (click)="updatechilddata()">{{vaccine.vaccine}}
+                        </option>
+                    </select>
+                    <div class="form-check mt-2 mb-2">
+                        <input class="form-check-input" type="checkbox" value="" formControlName="given"
+                            id="flexCheckDefault">Given
+                    </div>
+                    <div class="mb-3">
+                        <label for="duedate" class="form-label">Due Date</label>
+                        <input type="date" class="form-control" formControlName="duedate" id="duedate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="givendate" class="form-label">Given Date</label>
+                        <input type="date" class="form-control" formControlName="givendate" id="givendate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Comments</label>
+                        <input type="text" class="form-control" formControlName="comment" id="comment">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="background-color: rgb(127, 68, 155);">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" *ngIf="showadd" (click)="postchilddata()" class="btn btn-success">Save</button>
+                <button type="button" *ngIf="showupdate" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" mt-3>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Vaccine</th>
+                <th scope="col">Given</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Given Date</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let child of childData">
+                <td>{{child.id}}</td>
+                <td>{{child.name}}</td>
+                <td>{{child.vaccine}}</td>
+                <td>{{child.given}}</td>
+                <td>{{child.duedate}}</td>
+                <td>{{child.givendate}}</td>
+                <td>{{child.comment}}</td>
+                <td><button type="button" (click)="deletechilddata(child)" class="btn  me-3 "><i
+                            class="fa-solid fa-trash-can"></i></button>
+                    <button type="button" (click)="onEdit(child)" class="btn  me-3" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"><i class="fa-solid fa-pen"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
